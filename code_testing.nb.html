@@ -1753,6 +1753,10 @@ summary {
 <p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcbmNoYXJhY3RlcnMgPSByZWFkX2NzdihcImRhdGEvY2hhcmFjdGVycy5jc3ZcIilcbmVwaXNvZGVzID0gcmVhZF9jc3YoXCJkYXRhL2VwaXNvZGVzLmNzdlwiKVxuc2NlbmVzID0gcmVhZF9jc3YoXCJkYXRhL3NjZW5lcy5jc3ZcIilcbmFwcGVhcmFuY2VzID0gcmVhZF9jc3YoXCJkYXRhL2FwcGVhcmFuY2VzLmNzdlwiKVxuYGBgIn0= -->
 <pre class="r"><code>library(readr)
 characters = read_csv(&quot;data/characters.csv&quot;)
@@ -1761,13 +1765,56 @@ scenes = read_csv(&quot;data/scenes.csv&quot;)
 appearances = read_csv(&quot;data/appearances.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzZilcbmxpYnJhcnkodGlkeXIpXG5saWJyYXJ5KGdncGxvdDIpXG5sb2NhdGlvbnM9c3RfcmVhZChcIi4vZGF0YS9Hb1RSZWxlYXNlL0xvY2F0aW9ucy5zaHBcIixjcnM9NDMyNilcbmBgYCJ9 -->
+<pre class="r"><code>library(sf)
+library(tidyr)
+library(ggplot2)
+locations=st_read(&quot;./data/GoTRelease/Locations.shp&quot;,crs=4326)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFrZXM9c3RfcmVhZChcIi4vZGF0YS9Hb1RSZWxlYXNlL0xha2VzLnNocFwiLGNycz00MzI2KVxuY29udHM9c3RfcmVhZChcIi4vZGF0YS9Hb1RSZWxlYXNlL0NvbnRpbmVudHMuc2hwXCIsY3JzPTQzMjYpXG5sYW5kPXN0X3JlYWQoXCIuL2RhdGEvR29UUmVsZWFzZS9MYW5kLnNocFwiLGNycz00MzI2KVxud2FsbD1zdF9yZWFkKFwiLi9kYXRhL0dvVFJlbGVhc2UvV2FsbC5zaHBcIixjcnM9NDMyNilcbmlzbGFuZHM9c3RfcmVhZChcIi4vZGF0YS9Hb1RSZWxlYXNlL0lzbGFuZHMuc2hwXCIsY3JzPTQzMjYpXG5raW5nZG9tcz1zdF9yZWFkKFwiLi9kYXRhL0dvVFJlbGVhc2UvUG9saXRpY2FsLnNocFwiLGNycz00MzI2KVxubGFuZHNjYXBlcz1zdF9yZWFkKFwiLi9kYXRhL0dvVFJlbGVhc2UvTGFuZHNjYXBlLnNocFwiLGNycz00MzI2KVxucm9hZHM9c3RfcmVhZChcIi4vZGF0YS9Hb1RSZWxlYXNlL1JvYWRzLnNocFwiLGNycz00MzI2KVxucml2ZXJzPXN0X3JlYWQoXCIuL2RhdGEvR29UUmVsZWFzZS9SaXZlcnMuc2hwXCIsY3JzPTQzMjYpXG5cbmBgYCJ9 -->
+<pre class="r"><code>lakes=st_read(&quot;./data/GoTRelease/Lakes.shp&quot;,crs=4326)
+conts=st_read(&quot;./data/GoTRelease/Continents.shp&quot;,crs=4326)
+land=st_read(&quot;./data/GoTRelease/Land.shp&quot;,crs=4326)
+wall=st_read(&quot;./data/GoTRelease/Wall.shp&quot;,crs=4326)
+islands=st_read(&quot;./data/GoTRelease/Islands.shp&quot;,crs=4326)
+kingdoms=st_read(&quot;./data/GoTRelease/Political.shp&quot;,crs=4326)
+landscapes=st_read(&quot;./data/GoTRelease/Landscape.shp&quot;,crs=4326)
+roads=st_read(&quot;./data/GoTRelease/Roads.shp&quot;,crs=4326)
+rivers=st_read(&quot;./data/GoTRelease/Rivers.shp&quot;,crs=4326)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29sZm9yZXN0PVwiIzI5YjUyNFwiXG5jb2xyaXZlcj1cIiM0Zjc5ZjBcIlxuY29sbGFrZT1cIiM4N2NkZGVcIlxuY29sbGFuZD1cIml2b3J5XCJcbmJvcmRlcmxhbmQgPSBcIml2b3J5M1wiICBcbmdncGxvdCgpK2dlb21fc2YoZGF0YT1sYW5kLGZpbGw9Y29sbGFuZCxjb2w9Ym9yZGVybGFuZCxzaXplPTAuMSkrXG4gIGdlb21fc2YoZGF0YT1pc2xhbmRzLGZpbGw9Y29sbGFuZCxjb2w9XCJpdm9yeTNcIikrXG4gIGdlb21fc2YoZGF0YT1sYW5kc2NhcGVzICU+JSBmaWx0ZXIodHlwZT09XCJmb3Jlc3RcIiksZmlsbD1jb2xmb3Jlc3QsY29sPWNvbGZvcmVzdCkrXG4gIGdlb21fc2YoZGF0YT1yaXZlcnMsY29sPWNvbHJpdmVyKStcbiAgZ2VvbV9zZihkYXRhPWxha2VzLGNvbD1jb2xsYWtlLGZpbGw9Y29sbGFrZSkrXG4gIGdlb21fc2YoZGF0YT13YWxsLGNvbD1cImJsYWNrXCIsc2l6ZT0xKStcbiAgZ2VvbV9zZl90ZXh0KGRhdGE9IGxvY2F0aW9ucyAlPiUgZmlsdGVyKHNpemU+NCxuYW1lIT0nVG9sb3MnKSxhZXMobGFiZWw9bmFtZSksc2l6ZT0yLjUsZmFtaWx5PVwiUGFsYXRpbm9cIiwgZm9udGZhY2U9XCJpdGFsaWNcIikrXG4gIHRoZW1lX21pbmltYWwoKStjb29yZF9zZihleHBhbmQgPSAwLG5kaXNjciA9IDApK1xuICB0aGVtZShwYW5lbC5iYWNrZ3JvdW5kID0gZWxlbWVudF9yZWN0KGZpbGwgPSBjb2xyaXZlcixjb2xvcj1OQSkpICtcbiAgbGFicyh0aXRsZSA9IFwiUm95YXVtZXMgZGUgR09UXCIsY2FwdGlvbiA9IFwiRGlzdHJpYnV0aW9uIGRlcyBcIix4PVwiXCIseT1cIlwiKVxuYGBgIn0= -->
+<pre class="r"><code>colforest=&quot;#29b524&quot;
+colriver=&quot;#4f79f0&quot;
+collake=&quot;#87cdde&quot;
+colland=&quot;ivory&quot;
+borderland = &quot;ivory3&quot;  
+ggplot()+geom_sf(data=land,fill=colland,col=borderland,size=0.1)+
+  geom_sf(data=islands,fill=colland,col=&quot;ivory3&quot;)+
+  geom_sf(data=landscapes %&gt;% filter(type==&quot;forest&quot;),fill=colforest,col=colforest)+
+  geom_sf(data=rivers,col=colriver)+
+  geom_sf(data=lakes,col=collake,fill=collake)+
+  geom_sf(data=wall,col=&quot;black&quot;,size=1)+
+  geom_sf_text(data= locations %&gt;% filter(size&gt;4,name!=&#39;Tolos&#39;),aes(label=name),size=2.5,family=&quot;Palatino&quot;, fontface=&quot;italic&quot;)+
+  theme_minimal()+coord_sf(expand = 0,ndiscr = 0)+
+  theme(panel.background = element_rect(fill = colriver,color=NA)) +
+  labs(title = &quot;Royaumes de GOT&quot;,caption = &quot;Distribution des &quot;,x=&quot;&quot;,y=&quot;&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
 <p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
 <p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQpsaWJyYXJ5KHJlYWRyKQ0KY2hhcmFjdGVycyA9IHJlYWRfY3N2KCJkYXRhL2NoYXJhY3RlcnMuY3N2IikNCmVwaXNvZGVzID0gcmVhZF9jc3YoImRhdGEvZXBpc29kZXMuY3N2IikNCnNjZW5lcyA9IHJlYWRfY3N2KCJkYXRhL3NjZW5lcy5jc3YiKQ0KYXBwZWFyYW5jZXMgPSByZWFkX2NzdigiZGF0YS9hcHBlYXJhbmNlcy5jc3YiKQ0KYGBgDQoNCkFkZCBhIG5ldyBjaHVuayBieSBjbGlja2luZyB0aGUgKkluc2VydCBDaHVuayogYnV0dG9uIG9uIHRoZSB0b29sYmFyIG9yIGJ5IHByZXNzaW5nICpDdHJsK0FsdCtJKi4NCg0KV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQoNClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4NCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCmBgYHtyfQ0KDQpgYGANCg0KYGBge3J9DQpsaWJyYXJ5KHJlYWRyKQ0KY2hhcmFjdGVycyA9IHJlYWRfY3N2KCJkYXRhL2NoYXJhY3RlcnMuY3N2IikNCmVwaXNvZGVzID0gcmVhZF9jc3YoImRhdGEvZXBpc29kZXMuY3N2IikNCnNjZW5lcyA9IHJlYWRfY3N2KCJkYXRhL3NjZW5lcy5jc3YiKQ0KYXBwZWFyYW5jZXMgPSByZWFkX2NzdigiZGF0YS9hcHBlYXJhbmNlcy5jc3YiKQ0KYGBgDQpgYGB7cn0NCmxpYnJhcnkoc2YpDQpsaWJyYXJ5KHRpZHlyKQ0KbGlicmFyeShnZ3Bsb3QyKQ0KbG9jYXRpb25zPXN0X3JlYWQoIi4vZGF0YS9Hb1RSZWxlYXNlL0xvY2F0aW9ucy5zaHAiLGNycz00MzI2KQ0KYGBgDQoNCg0KYGBge3J9DQpsYWtlcz1zdF9yZWFkKCIuL2RhdGEvR29UUmVsZWFzZS9MYWtlcy5zaHAiLGNycz00MzI2KQ0KY29udHM9c3RfcmVhZCgiLi9kYXRhL0dvVFJlbGVhc2UvQ29udGluZW50cy5zaHAiLGNycz00MzI2KQ0KbGFuZD1zdF9yZWFkKCIuL2RhdGEvR29UUmVsZWFzZS9MYW5kLnNocCIsY3JzPTQzMjYpDQp3YWxsPXN0X3JlYWQoIi4vZGF0YS9Hb1RSZWxlYXNlL1dhbGwuc2hwIixjcnM9NDMyNikNCmlzbGFuZHM9c3RfcmVhZCgiLi9kYXRhL0dvVFJlbGVhc2UvSXNsYW5kcy5zaHAiLGNycz00MzI2KQ0Ka2luZ2RvbXM9c3RfcmVhZCgiLi9kYXRhL0dvVFJlbGVhc2UvUG9saXRpY2FsLnNocCIsY3JzPTQzMjYpDQpsYW5kc2NhcGVzPXN0X3JlYWQoIi4vZGF0YS9Hb1RSZWxlYXNlL0xhbmRzY2FwZS5zaHAiLGNycz00MzI2KQ0Kcm9hZHM9c3RfcmVhZCgiLi9kYXRhL0dvVFJlbGVhc2UvUm9hZHMuc2hwIixjcnM9NDMyNikNCnJpdmVycz1zdF9yZWFkKCIuL2RhdGEvR29UUmVsZWFzZS9SaXZlcnMuc2hwIixjcnM9NDMyNikNCg0KYGBgDQpgYGB7cn0NCmNvbGZvcmVzdD0iIzI5YjUyNCINCmNvbHJpdmVyPSIjNGY3OWYwIg0KY29sbGFrZT0iIzg3Y2RkZSINCmNvbGxhbmQ9Iml2b3J5Ig0KYm9yZGVybGFuZCA9ICJpdm9yeTMiICANCmdncGxvdCgpK2dlb21fc2YoZGF0YT1sYW5kLGZpbGw9Y29sbGFuZCxjb2w9Ym9yZGVybGFuZCxzaXplPTAuMSkrDQogIGdlb21fc2YoZGF0YT1pc2xhbmRzLGZpbGw9Y29sbGFuZCxjb2w9Iml2b3J5MyIpKw0KICBnZW9tX3NmKGRhdGE9bGFuZHNjYXBlcyAlPiUgZmlsdGVyKHR5cGU9PSJmb3Jlc3QiKSxmaWxsPWNvbGZvcmVzdCxjb2w9Y29sZm9yZXN0KSsNCiAgZ2VvbV9zZihkYXRhPXJpdmVycyxjb2w9Y29scml2ZXIpKw0KICBnZW9tX3NmKGRhdGE9bGFrZXMsY29sPWNvbGxha2UsZmlsbD1jb2xsYWtlKSsNCiAgZ2VvbV9zZihkYXRhPXdhbGwsY29sPSJibGFjayIsc2l6ZT0xKSsNCiAgZ2VvbV9zZl90ZXh0KGRhdGE9IGxvY2F0aW9ucyAlPiUgZmlsdGVyKHNpemU+NCxuYW1lIT0nVG9sb3MnKSxhZXMobGFiZWw9bmFtZSksc2l6ZT0yLjUsZmFtaWx5PSJQYWxhdGlubyIsIGZvbnRmYWNlPSJpdGFsaWMiKSsNCiAgdGhlbWVfbWluaW1hbCgpK2Nvb3JkX3NmKGV4cGFuZCA9IDAsbmRpc2NyID0gMCkrDQogIHRoZW1lKHBhbmVsLmJhY2tncm91bmQgPSBlbGVtZW50X3JlY3QoZmlsbCA9IGNvbHJpdmVyLGNvbG9yPU5BKSkgKw0KICBsYWJzKHRpdGxlID0gIlJveWF1bWVzIGRlIEdPVCIsY2FwdGlvbiA9ICJEaXN0cmlidXRpb24gZGVzICIseD0iIix5PSIiKQ0KYGBgDQoNCkFkZCBhIG5ldyBjaHVuayBieSBjbGlja2luZyB0aGUgKkluc2VydCBDaHVuayogYnV0dG9uIG9uIHRoZSB0b29sYmFyIG9yIGJ5IHByZXNzaW5nICpDdHJsK0FsdCtJKi4NCg0KV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQoNClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4NCg==</div>
 
 
 

@@ -6,6 +6,9 @@ output: html_notebook
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+```{r}
+
+```
 
 ```{r}
 library(readr)
@@ -13,6 +16,43 @@ characters = read_csv("data/characters.csv")
 episodes = read_csv("data/episodes.csv")
 scenes = read_csv("data/scenes.csv")
 appearances = read_csv("data/appearances.csv")
+```
+```{r}
+library(sf)
+library(tidyr)
+library(ggplot2)
+locations=st_read("./data/GoTRelease/Locations.shp",crs=4326)
+```
+
+
+```{r}
+lakes=st_read("./data/GoTRelease/Lakes.shp",crs=4326)
+conts=st_read("./data/GoTRelease/Continents.shp",crs=4326)
+land=st_read("./data/GoTRelease/Land.shp",crs=4326)
+wall=st_read("./data/GoTRelease/Wall.shp",crs=4326)
+islands=st_read("./data/GoTRelease/Islands.shp",crs=4326)
+kingdoms=st_read("./data/GoTRelease/Political.shp",crs=4326)
+landscapes=st_read("./data/GoTRelease/Landscape.shp",crs=4326)
+roads=st_read("./data/GoTRelease/Roads.shp",crs=4326)
+rivers=st_read("./data/GoTRelease/Rivers.shp",crs=4326)
+
+```
+```{r}
+colforest="#29b524"
+colriver="#4f79f0"
+collake="#87cdde"
+colland="ivory"
+borderland = "ivory3"  
+ggplot()+geom_sf(data=land,fill=colland,col=borderland,size=0.1)+
+  geom_sf(data=islands,fill=colland,col="ivory3")+
+  geom_sf(data=landscapes %>% filter(type=="forest"),fill=colforest,col=colforest)+
+  geom_sf(data=rivers,col=colriver)+
+  geom_sf(data=lakes,col=collake,fill=collake)+
+  geom_sf(data=wall,col="black",size=1)+
+  geom_sf_text(data= locations %>% filter(size>4,name!='Tolos'),aes(label=name),size=2.5,family="Palatino", fontface="italic")+
+  theme_minimal()+coord_sf(expand = 0,ndiscr = 0)+
+  theme(panel.background = element_rect(fill = colriver,color=NA)) +
+  labs(title = "Royaumes de GOT",caption = "Distribution des ",x="",y="")
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.

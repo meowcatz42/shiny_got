@@ -7,10 +7,10 @@ library(readr)
 
 # Data Preparation Steps
 
-characters = read_csv("/Users/hamzalhassnaoui/Desktop/shinyapp/got-master/data/characters.csv")
-episodes = read_csv("/Users/hamzalhassnaoui/Desktop/shinyapp/got-master/data/episodes.csv")
-scenes = read_csv("/Users/hamzalhassnaoui/Desktop/shinyapp/got-master/data/scenes.csv")
-appearances = read_csv("/Users/hamzalhassnaoui/Desktop/shinyapp/got-master/data/appearances.csv")
+characters = read_csv("data/characters.csv")
+episodes = read_csv("data/episodes.csv")
+scenes = read_csv("data/scenes.csv")
+appearances = read_csv("data/appearances.csv")
 
 
 
@@ -33,7 +33,7 @@ ui <- fluidPage(
                   tabPanel("Number of deaths",
                            sidebarPanel(
                              sliderInput("bins",
-                                         "Number of bins:",
+                                         "Nombre de saisons:",
                                          min = 1,
                                          max = 8,
                                          value = 8)
