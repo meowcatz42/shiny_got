@@ -5,6 +5,7 @@
     library(rjson)
     library(sf)
     library(devtools)
+    library(rCharts)
     library(ggpubr)
     
     jstime = appearances %>% filter(name == "Jon Snow") %>% 
@@ -20,7 +21,7 @@
       geom_text(label = jstime$episodeId, hjust = -0.7, vjust=1.5, size = 1.9) + 
       coord_cartesian(xlim = c(0,30)) 
     
-    # description des caract?res majeures de GOT
+    # description des caractËres majeures de GOT
     
     dsc1 = "Jon Snow, born Aegon Targaryen, is the son of Lyanna Stark and Rhaegar Targaryen, the late Prince of Dragonstone. From infancy, Jon is presented as the bastard son of Lord Eddard Stark, Lyanna's brother, and raised alongside Eddard's lawful children at Winterfell, the seat of House Stark. However, Jon's true parentage is kept secret from everyone, including Jon himself, in order to protect him from those that sought the complete annihilation of House Targaryen after Robert's Rebellion and to maintain order in the realm."
     dsc2 = "Tyrion Lannister is a member of House Lannister and is the third and youngest child of Lord Tywin Lannister and the late Lady Joanna Lannister. His older siblings are Cersei Lannister, the queen of King Robert I Baratheon, and Ser Jaime Lannister, a knight of Robert's Kingsguard. Tyrion is a dwarf; because of this he is sometimes called the Imp and the Halfman. He is one of the major POV characters in the books. In the television adaptation Game of Thrones, Tyrion is played by Peter Dinklage."
@@ -31,20 +32,12 @@
     
     #Row data
     
-    appearances = read.csv("data/appearances.csv")
-    characters = read.csv("data/characters.csv")
-    episodes = read.csv("data/episodes.csv")
-    populations = read.csv("data/populations.csv")
-    scenes = read.csv("data/scenes.csv")
+    appearances = read.csv("appearances.csv")
+    characters = read.csv("characters.csv")
+    episodes = read.csv("episodes.csv")
+    populations = read.csv("populations.csv")
+    scenes = read.csv("scenes.csv")
     characters_image = subset(characters, select = -c(image))
-    scenes_locations=st_read("./data/GoTRelease/ScenesLocations.shp",crs=4326)
-    main_char= c("Jon Snow", "Tyrion Lannister","Daenerys Targaryen","Sansa Stark","Cersei Lannister","Arya Stark")
-    landpol = st_union(st_geometry(land)) 
-    islandpol = st_union(st_geometry(islands))
-    backpol=st_union(landpol,islandpol)
-    background = st_as_sf(data.frame(name=main_char,geometry=rep(backpol,6)))
-    loc_time=appearances %>% filter(name %in% main_char) %>% left_join(scenes) %>% group_by(location,name) %>% summarize(duration=sum(duration,na.rm=TRUE)) 
-    loc_time_mc = scenes_locations %>% left_join(loc_time)
     
     ui <- fluidPage(theme = shinytheme("lumen"),
                      
@@ -79,10 +72,10 @@
                         ),
                         
                          tabPanel(p(icon("users"), "Major characters | Visualization & Analysis"),
-                                  tags$blockquote(h5("Cette rubrique s'interesse aux caract√®res majeures de la s?rie t?l?vis?e Game Of thrones. Le choix de ces caract?res 
-                                  est bas? d'abord sur la dur√©e totale d'apparition des diff?rents caract?res de la s?rie. En effet, les diff?rentes donn?es fournies nous ont permis 
-                                  de faire le classement des caract?res en termes de dur?e totale d'apparition dans la s?rie.
-                                  Ce choix est valid? ?galement par l'avis de deux cin?philes de l'?cole Centrale Casablanca ; credits go to : Hamza El Hassnaoui/Dakir.")),
+                                  tags$blockquote(h5("Cette rubrique s'intÈresse aux caractËres majeures de la sÈrie tÈlÈvisÈe Game Of thrones. Le choix de ces caractËres 
+                                  est basÈ d'abord sur la durÈe totale d'apparition des diffÈrents caractËres de la sÈrie. En effet, les diffÈrentes donnÈes fournies nous ont permis 
+                                  de faire le classement des caractËres en termes de durÈe totale d'apparition dans la sÈrie.
+                                  Ce choix est validÈ Ègalement par l'avis de deux cinÈphiles de l'Ècole Centrale Casablanca ; credits go to : Hamza El Hassnaoui/Dakir.")),
                                   
                                                      
                                   
@@ -98,15 +91,15 @@
                                   mainPanel(
                                     imageOutput("image2"),
                                     textOutput('dsc'),
-                                    tags$blockquote(h4('La figure ci-dessous repr?sente le temps de pr?sence
-                                       du caract?re choisi en fonction des diff?rents ?pisodes de
-                                       la s?rie.')),
+                                    tags$blockquote(h4('La figure ci-dessous reprÈsente le temps de prÈsence
+                                       du caractËre choisi en fonction des diffÈrents Èpisodes de
+                                       la sÈrie.')),
                                     plotOutput('show')
                                   )
                                   
                                   
                                   ),
-                        tabPanel(p(icon("inbox"), "Appearance time by episode"),
+                        tabPanel(p(icon("inbox"), "Temps de prÈsence par Èpisode"),
                                  sidebarPanel(
                                    selectInput(inputId="characters",label="Choose Characters",choices = c("Jon Snow", "Daenerys Targaryen","Arya Stark","Sandor Clegane","Cersei Lannister","Sansa Stark","Lord Varys","Jaime Lannister","Tyrion Lannister" ),selected = "Jon Snow",multiple = F),
                                    
@@ -116,30 +109,17 @@
                                    plotOutput("distPlot" )
                                  )      
                         ),
-                        
                         tabPanel(p(icon("info"),"Number of deaths"),
                                  
                                  sidebarPanel(
                                    sliderInput("bins",
-                                               "Nombre de saisons:",
+                                               "Number of bins:",
                                                min = 1,
                                                max = 8,
                                                value = 8)
                                  ),
                                  mainPanel(
                                    plotOutput("distPlot01")
-                                 )
-                        ),
-                        
-                        tabPanel(p(icon("map-pin"),"Map of appearances by character"),
-                                 
-                                 sidebarPanel(
-                                     selectInput(inputId = "character1",
-                                                 label = "Choose a character:",
-                                                 choices = c("Tyrion Lannister", "Jon Snow", "Daenerys Targaryen","Sansa Stark","Cersel Lannister", "Arya Stark"))
-                                 ),
-                                 mainPanel(
-                                     plotOutput("mapPlot")
                                  )
                         )
                         
@@ -263,7 +243,7 @@
           p1 <- ggplot(appearances  %>%  filter(name=="Jon Snow") %>%left_join(scenes) %>% group_by(episodeId) %>% summarise(time=sum(duration))) + 
             geom_line(aes(x=episodeId,y=time))+
             theme_bw()+
-            xlab("?pisode")+ylab("temps")
+            xlab("Èpisode")+ylab("temps")
           if(input$characters == "Jon Snow"){
             p1 <- p1
           }else if(input$characters=="Arya Stark"){
@@ -296,10 +276,10 @@
           p1 <- p1 + 
             geom_line(aes(x=episodeId,y=time))+
             theme_bw()+
-            xlab("?pisode")+ylab("temps")+theme_bw()+
+            xlab("Èpisode")+ylab("temps")+theme_bw()+
             theme(axis.title = element_text(size=12,color="BLACK",face="bold"),
                   axis.text = element_text(size=14,color="BLACK",face="bold"))+
-            labs(x="?pisode",y="Temps de pr?sence par ?pisode",title=paste("Temps de pr?sence par ?pisode de",input$characters))
+            labs(x="Èpisode",y="Temps de prÈsence par Èpisode",title=paste("Temps de prÈsence par Èpisode de",input$characters))
           
           print(p1)
       })
@@ -316,7 +296,7 @@
           p <- ggplot(deaths) + geom_line(aes(x=t/3600,y=tdeath)) +
             scale_x_continuous("",expand = c(0,0),breaks = season_t/3600,
                                labels =   paste("Saison",1:8),)+
-            scale_y_continuous("Nombre de morts cumul?", expand=c(0,0))
+            scale_y_continuous("Nombre de morts cumulÈ", expand=c(0,0))
           print(p)
         }
         else if(input$bins==7){
@@ -329,7 +309,7 @@
           p <- ggplot(deaths)+ geom_line(aes(x=t/3600,y=tdeath)) +
             scale_x_continuous("",expand = c(0,0),breaks = season_t/3600,
                                labels =   paste("Saison",1:7),)+
-            scale_y_continuous("Nombre de morts cumul?", expand=c(0,0))
+            scale_y_continuous("Nombre de morts cumulÈ", expand=c(0,0))
           print(p)
         }
         else if(input$bins <= 6){
@@ -342,26 +322,9 @@
           p <- ggplot(deaths)+ geom_line(aes(x=t/3600,y=tdeath)) +
             scale_x_continuous("",expand = c(0,0),breaks = season_t/3600,
                                labels =   paste("Saison",1:input$bins),)+
-            scale_y_continuous("Nombre de morts cumul?", expand=c(0,0))
+            scale_y_continuous("Nombre de morts cumulÈ", expand=c(0,0))
           print(p)
         }
         })
-      
-      output$mapPlot = renderPlot({
-          
-          char_name = input$character1
-                ggplot()+geom_sf(data=background,color=borderland,fill=colland)+
-                      geom_sf(data=loc_time_mc%>% filter(!is.na(duration))%>%filter(name==char_name),aes(size=duration/60,color=name))+
-                      geom_sf_text(data=loc_time_mc%>% filter(duration>60*60),aes(label=location),color="#000000",vjust="bottom",family="Palatino", fontface="italic")+
-                      coord_sf(expand = 0,ndiscr = 0)+
-                      scale_color_discrete(guide="none")+
-                      scale_size_area("Dur√©e (min) :",max_size = 12,breaks=c(30,60,120,240))+
-                      #facet_wrap(~name)+
-                      theme(panel.background = element_rect(fill = colriver,color=NA),
-                            text = element_text(family="Palatino",face = "bold",size = 14),
-                            legend.key = element_rect(fill="#ffffff"),
-                      ) +
-                      labs(title = paste("R√©partition spatiale des sc√®nes de", char_name, sep=" "),caption = "@comeetie, 2020",x="",y="")
-      })
     }
     shinyApp (ui = ui, server = server)
