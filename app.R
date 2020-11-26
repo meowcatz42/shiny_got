@@ -7,7 +7,7 @@
     library(devtools)
     library(ggpubr)
     
-    jstime = appearances %>% filter(name == "Jon Snow") %>% 
+    jstime = appearances %>% filter('name' == "Jon Snow") %>% 
       left_join(scenes) %>% 
       group_by(episodeId) %>% 
       summarise(time=sum(duration))
